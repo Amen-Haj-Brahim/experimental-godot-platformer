@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbt3deuupf27g"]
+[gd_scene load_steps=14 format=3 uid="uid://cbt3deuupf27g"]
 
 [ext_resource type="Texture2D" uid="uid://ere2empfbbui" path="res://assets/sprites/lancelot_.png" id="1_t252y"]
 [ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_ytj8w"]
@@ -19,6 +19,26 @@ region = Rect2(48, 0, 24, 24)
 atlas = ExtResource("1_t252y")
 region = Rect2(72, 0, 24, 24)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_oa6go"]
+atlas = ExtResource("1_t252y")
+region = Rect2(48, 120, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1ycy"]
+atlas = ExtResource("1_t252y")
+region = Rect2(0, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ag82u"]
+atlas = ExtResource("1_t252y")
+region = Rect2(24, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ape14"]
+atlas = ExtResource("1_t252y")
+region = Rect2(48, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cp4d7"]
+atlas = ExtResource("1_t252y")
+region = Rect2(72, 48, 24, 24)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_k4qd5"]
 animations = [{
 "frames": [{
@@ -35,7 +55,32 @@ animations = [{
 "texture": SubResource("AtlasTexture_trkox")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oa6go")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t1ycy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ag82u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ape14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cp4d7")
+}],
+"loop": true,
+"name": &"run",
 "speed": 10.0
 }]
 
@@ -48,9 +93,8 @@ script = ExtResource("1_ytj8w")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_k4qd5")
-autoplay = "default"
-frame = 2
-frame_progress = 0.464754
+animation = &"jump"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
