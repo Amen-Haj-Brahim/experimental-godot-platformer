@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://cbt3deuupf27g"]
+
+[ext_resource type="Texture2D" uid="uid://ere2empfbbui" path="res://assets/sprites/lancelot_.png" id="1_t252y"]
+[ext_resource type="Script" path="res://scripts/playermovement.gd" id="1_ytj8w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6c52"]
+atlas = ExtResource("1_t252y")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syrb3"]
+atlas = ExtResource("1_t252y")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkimq"]
+atlas = ExtResource("1_t252y")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trkox"]
+atlas = ExtResource("1_t252y")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k4qd5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6c52")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_syrb3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kkimq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trkox")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mpacx"]
+radius = 5.0
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_ytj8w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_k4qd5")
+autoplay = "default"
+frame = 2
+frame_progress = 0.464754
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_mpacx")
