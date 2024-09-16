@@ -3,7 +3,8 @@ extends CharacterBody2D
 
 const SPEED = 150.0
 const JUMP_VELOCITY = -300.0
-
+@export_range(0,1) var acceleration=0.1
+@export_range(0,1) var deceleration=0.1
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 func _physics_process(delta):
@@ -33,8 +34,8 @@ func _physics_process(delta):
 	else:
 		animated_sprite_2d.play("jump")
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = move_toward(velocity.x, direction*SPEED, SPEED*acceleration)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, SPEED*deceleration)
 
 	move_and_slide()
