@@ -28,6 +28,8 @@ func _physics_process(delta):
 	# Handle jump.
 	jump(delta)
 	print(velocity.y)
+	if velocity.y>400:
+		velocity.y=400
 	if velocity.y>0:
 		velocity.y+=5
 	# Get the input direction and handle the movement/deceleration.
