@@ -1,33 +1,42 @@
 extends CharacterBody2D
 
 
-const SPEED = 150.0
-const JUMP_VELOCITY = -300.0
+const SPEED = 200.0
+const JUMP_VELOCITY = -350.0
 @export_range(0,1) var acceleration=0.1
 @export_range(0,1) var deceleration=0.1
 @export_range(0,1) var decelerate_jump=0.5
+@export var coyote_time=.1
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+var jump_buffer_timer=0.0
+
+func jump(delta):
+	if Input.is_action_just_pressed("jump"):
+		jump_buffer_timer=0.2
+	jump_buffer_timer-=delta
+	if (is_on_floor() or is_on_wall())and jump_buffer_timer>0 :
+		jump_buffer_timer=0.0
+		velocity.y = JUMP_VELOCITY
+	if Input.is_action_just_released("jump") and velocity.y<0:
+		jump_buffer_timer=0.0
+		velocity.y*=decelerate_jump
 
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor(): 
 		velocity += get_gravity() * delta
-
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_wall()):
-		velocity.y = JUMP_VELOCITY
-	if Input.is_action_just_released("jump") and velocity.y<0:
-		velocity.y*=decelerate_jump
-		
+	jump(delta)
+	print(velocity.y)
+	if velocity.y>0:
+		velocity.y+=5
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction  = Input.get_axis("move_left", "move_right")
-	
 	if direction>0:
 		animated_sprite_2d.flip_h=false
 	elif direction<0:
 		animated_sprite_2d.flip_h=true
-		
+	# Animations
 	if is_on_floor():
 		if direction==0:
 			animated_sprite_2d.play("idle")
