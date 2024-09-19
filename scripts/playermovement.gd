@@ -94,21 +94,23 @@ func flip(direction):
 
 func animations(direction):
 	# Animations
-	if is_stomping==true:
-		animated_sprite_2d.play("stomp")
 	if is_on_floor():
 		if direction==0:
 			animated_sprite_2d.play("idle")
 		else:
 			animated_sprite_2d.play("run")
-	else:
-		animated_sprite_2d.play("jump")
+	if !is_on_floor():
+		if is_stomping:
+			animated_sprite_2d.play("stomp")
+		else:
+			animated_sprite_2d.play("jump")
 
 
 func _on_timer_timeout() -> void:
 	can_dash=true
 	
 func stomp():
+	print(is_stomping)
 	if Input.is_action_just_pressed("stomp") and not is_on_floor():
 		gravity_disabled=false
 		velocity.y=MAX_FALL_SPEED
