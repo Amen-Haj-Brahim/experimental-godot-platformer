@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-const SPEED = 165.0
+const SPEED = 210.0
 const JUMP_VELOCITY = -350.0
 const DASH_SPEED = 400.0
 const MAX_FALL_SPEED=500.0
-const MAX_SPEED=400.0
+const MAX_SPEED=500.0
 @export_range(0,1) var acceleration=0.1
 @export_range(0,1) var deceleration=0.1
 @export_range(0,1) var decelerate_jump=0.6
@@ -14,13 +14,14 @@ var jump_buffer_timer=0.0
 var can_dash=true
 var dash_dir=1
 var gravity_disabled=false
-
+var is_stomping=false
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor(): 
 		velocity += get_gravity() * delta
 	if is_on_floor():
 		can_dash=true
+		is_stomping=false
 	if gravity_disabled==true:
 		velocity.y=0	
 	# Get the input direction and handle the movement/deceleration.
@@ -29,22 +30,22 @@ func _physics_process(delta):
 	print(horizontal,vertical)
 	#speed up falling speed every tick by 2 until it reaches 400 and keep it constatn at 400
 	if velocity.y>0:
-		velocity.y+=2
+		velocity.y+=20
 	if velocity.y>MAX_FALL_SPEED:
 		velocity.y=MAX_FALL_SPEED
-	if velocity.x>MAX_SPEED:
-		velocity.x=MAX_SPEED
+	if abs(velocity.x)>MAX_SPEED:
+		velocity.x=MAX_SPEED*horizontal
 	# Handle player actions.
 	jump(delta)
 	dash(horizontal,vertical)
-	player_move(horizontal,vertical)
+	player_move(horizontal)
 	flip(horizontal)
 	animations(horizontal)
 	stomp()
 
 	move_and_slide()
 
-func player_move(direction,facing):
+func player_move(direction):
 	#player movement
 	if direction:
 		velocity.x = move_toward(velocity.x, direction*SPEED, SPEED*acceleration)
@@ -65,24 +66,21 @@ func jump(delta):
 		velocity.y*=decelerate_jump
 
 func dash(horizontal,vertical):
-	#print(can_dash," direction ",direction," velocity ",velocity, "dash dir ",dash_dir)
 	if horizontal!=0:
 		dash_dir=horizontal
 	if Input.is_action_just_pressed("dash") and can_dash:
 		if vertical!=0 and horizontal==0:
+			
 			velocity.y=-DASH_SPEED
-			print("vertical dash")
 		elif horizontal!=0 and vertical!=0:
+			print("here2")
 			velocity=(DASH_SPEED*Vector2(horizontal,vertical))
-			print("diagonal dash")
 		else:
-			velocity.x=(DASH_SPEED*1.1)*dash_dir
+			velocity.x=DASH_SPEED*1.3*dash_dir
 			disable_gravity()
-			#velocity.move_toward(Vector2(velocity.x+DASH_SPEED,velocity.y)*dash_dir,1)
-			print("horizontal dash")
 		can_dash=false
 		$Timer.start()
-	print(velocity)
+	#print(velocity,is_stomping)
 
 func disable_gravity():
 	$GravityTimer.start()
@@ -96,6 +94,8 @@ func flip(direction):
 
 func animations(direction):
 	# Animations
+	if is_stomping==true:
+		animated_sprite_2d.play("stomp")
 	if is_on_floor():
 		if direction==0:
 			animated_sprite_2d.play("idle")
@@ -110,7 +110,9 @@ func _on_timer_timeout() -> void:
 	
 func stomp():
 	if Input.is_action_just_pressed("stomp") and not is_on_floor():
+		gravity_disabled=false
 		velocity.y=MAX_FALL_SPEED
+		is_stomping=true
 
 
 func _on_gravity_timer_timeout() -> void:
