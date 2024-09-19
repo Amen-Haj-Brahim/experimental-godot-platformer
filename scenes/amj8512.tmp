@@ -301,7 +301,11 @@ tile_map_data = PackedByteArray("AADp/wMAAAADAAYAAADp/wQAAAADAAYAAADp/wUAAAADAAY
 tile_set = SubResource("TileSet_oko0n")
 
 [node name="player" parent="." instance=ExtResource("1_b0wd8")]
-position = Vector2(444, 45)
+position = Vector2(0, 29)
+acceleration = 0.244
+deceleration = 0.235
+decelerate_jump = null
+coyote_time = null
 
 [node name="Camera2D" type="Camera2D" parent="player"]
 zoom = Vector2(3, 3)
@@ -318,7 +322,7 @@ tile_set = SubResource("TileSet_ri65y")
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-36, -471)
+position = Vector2(0, -216)
 shape = SubResource("WorldBoundaryShape2D_bbt20")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
