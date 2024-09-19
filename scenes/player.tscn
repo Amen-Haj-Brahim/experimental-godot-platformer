@@ -113,6 +113,7 @@ position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_mpacx")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.201
 
 [node name="GravityTimer" type="Timer" parent="."]
 wait_time = 0.2

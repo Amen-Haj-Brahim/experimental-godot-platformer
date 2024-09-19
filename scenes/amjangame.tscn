@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=4 uid="uid://dd4smcriissh0"]
+[gd_scene load_steps=18 format=4 uid="uid://dd4smcriissh0"]
 
 [ext_resource type="PackedScene" uid="uid://cbt3deuupf27g" path="res://scenes/player.tscn" id="1_b0wd8"]
 [ext_resource type="Texture2D" uid="uid://cmn5s00l8w02u" path="res://assets/sprites/spring_.png" id="2_gg7s7"]
+[ext_resource type="Texture2D" uid="uid://cyeo36odf3fbo" path="res://assets/sprites/run.png" id="3_6exbt"]
 [ext_resource type="Texture2D" uid="uid://b08frik6bqgiv" path="res://assets/sprites/sky_.png" id="3_y1jla"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5btqh"]
@@ -37,6 +38,54 @@ texture = ExtResource("3_y1jla")
 
 [sub_resource type="TileSet" id="TileSet_oko0n"]
 sources/0 = SubResource("TileSetAtlasSource_5btqh")
+
+[sub_resource type="Shader" id="Shader_2cxmd"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_mix;
+uniform int particles_anim_h_frames;
+uniform int particles_anim_v_frames;
+uniform bool particles_anim_loop;
+
+void vertex() {
+	float h_frames = float(particles_anim_h_frames);
+	float v_frames = float(particles_anim_v_frames);
+	VERTEX.xy /= vec2(h_frames, v_frames);
+	float particle_total_frames = float(particles_anim_h_frames * particles_anim_v_frames);
+	float particle_frame = floor(INSTANCE_CUSTOM.z * float(particle_total_frames));
+	if (!particles_anim_loop) {
+		particle_frame = clamp(particle_frame, 0.0, particle_total_frames - 1.0);
+	} else {
+		particle_frame = mod(particle_frame, particle_total_frames);
+	}	UV /= vec2(h_frames, v_frames);
+	UV += vec2(mod(particle_frame, h_frames) / h_frames, floor((particle_frame + 0.5) / h_frames) / v_frames);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6unu3"]
+shader = SubResource("Shader_2cxmd")
+shader_parameter/particles_anim_h_frames = 4
+shader_parameter/particles_anim_v_frames = 1
+shader_parameter/particles_anim_loop = true
+
+[sub_resource type="Curve" id="Curve_pgc5w"]
+_data = [Vector2(0, 0.427921), 0.0, 0.0519027, 0, 0, Vector2(0.335793, 0), -0.0285574, 0.0, 0, 0, Vector2(0.335803, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_sq48c"]
+curve = SubResource("Curve_pgc5w")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6adnk"]
+gravity = Vector3(0, 0, 0)
+color = Color(1, 1, 0.556863, 1)
+alpha_curve = SubResource("CurveTexture_sq48c")
+hue_variation_min = -1.0
+hue_variation_max = -1.0
+anim_speed_min = 2.0
+anim_speed_max = 2.0
+sub_emitter_mode = 1
+sub_emitter_frequency = 4.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xcqyh"]
 texture = ExtResource("2_gg7s7")
@@ -309,6 +358,22 @@ process_callback = 0
 position_smoothing_enabled = true
 drag_left_margin = 0.0
 drag_right_margin = 0.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="player"]
+material = SubResource("ShaderMaterial_6unu3")
+position = Vector2(0, -7)
+amount = 7
+process_material = SubResource("ParticleProcessMaterial_6adnk")
+texture = ExtResource("3_6exbt")
+lifetime = 0.2
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="player"]
+material = SubResource("ShaderMaterial_6unu3")
+position = Vector2(0, -7)
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_6adnk")
+texture = ExtResource("3_6exbt")
+lifetime = 0.2
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(-1, 0)

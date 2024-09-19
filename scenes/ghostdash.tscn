@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://clb3k4vu4tfjb"]
+
+[ext_resource type="Script" path="res://scenes/ghostdash.gd" id="1_gng4y"]
+
+[node name="Ghostdash" type="Sprite2D"]
+script = ExtResource("1_gng4y")

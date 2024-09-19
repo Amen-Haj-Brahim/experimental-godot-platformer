@@ -5,6 +5,8 @@ const JUMP_VELOCITY = -350.0
 const DASH_SPEED = 400.0
 const MAX_FALL_SPEED=500.0
 const MAX_SPEED=500.0
+@onready var dash_effect: GPUParticles2D = $GPUParticles2D
+@onready var run_effect: GPUParticles2D = $GPUParticles2D2
 @export_range(0,1) var acceleration=0.1
 @export_range(0,1) var deceleration=0.1
 @export_range(0,1) var decelerate_jump=0.6
@@ -15,7 +17,15 @@ var can_dash=true
 var dash_dir=1
 var gravity_disabled=false
 var is_stomping=false
+
+func _ready() -> void:
+	dash_effect.emitting=false
+
 func _physics_process(delta):
+	if velocity.x!=0:
+		run_effect.emitting=true
+	else:
+		run_effect.emitting=false
 	# Add the gravity.
 	if not is_on_floor(): 
 		velocity += get_gravity() * delta
@@ -69,6 +79,7 @@ func dash(horizontal,vertical):
 	if horizontal!=0:
 		dash_dir=horizontal
 	if Input.is_action_just_pressed("dash") and can_dash:
+		dash_effect.emitting=true
 		if vertical!=0 and horizontal==0:
 			
 			velocity.y=-DASH_SPEED
@@ -85,11 +96,15 @@ func dash(horizontal,vertical):
 func disable_gravity():
 	$GravityTimer.start()
 	gravity_disabled=true
-	
+
 func flip(direction):
 	if direction>0:
+		dash_effect.scale.x=1
+		run_effect.scale.x=1
 		animated_sprite_2d.flip_h=false
 	elif direction<0:
+		run_effect.scale.x=-1
+		dash_effect.scale.x=-1
 		animated_sprite_2d.flip_h=true
 
 func animations(direction):
@@ -105,17 +120,16 @@ func animations(direction):
 		else:
 			animated_sprite_2d.play("jump")
 
-
 func _on_timer_timeout() -> void:
+	dash_effect.emitting=false
 	can_dash=true
-	
+
 func stomp():
 	print(is_stomping)
 	if Input.is_action_just_pressed("stomp") and not is_on_floor():
 		gravity_disabled=false
 		velocity.y=MAX_FALL_SPEED
 		is_stomping=true
-
 
 func _on_gravity_timer_timeout() -> void:
 	gravity_disabled=false
