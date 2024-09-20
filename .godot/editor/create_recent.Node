@@ -1,7 +1,8 @@
 GPUParticles2D
+Label
+Timer
 Sprite2D
 Node
-Timer
 TileMapLayer
 CollisionShape2D
 StaticBody2D

@@ -113,10 +113,14 @@ position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_mpacx")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.201
+one_shot = true
 
 [node name="GravityTimer" type="Timer" parent="."]
 wait_time = 0.2
 
+[node name="ghosteffecttimer" type="Timer" parent="."]
+wait_time = 0.2
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="GravityTimer" to="." method="_on_gravity_timer_timeout"]
+[connection signal="timeout" from="ghosteffecttimer" to="." method="_on_ghosteffecttimer_timeout"]

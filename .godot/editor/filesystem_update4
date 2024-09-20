@@ -1,2 +1,3 @@
 res://scenes/amjangame.tscn
 res://scenes/player.tscn
+res://scripts/playermovement.gd
