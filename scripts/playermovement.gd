@@ -8,12 +8,15 @@ const MAX_SPEED=500.0
 @onready var dash_effect: GPUParticles2D = $GPUParticles2D
 @onready var run_effect: GPUParticles2D = $GPUParticles2D2
 @onready var stomp_effect: GPUParticles2D = $GPUParticles2D3
+
 @export_range(0,1) var acceleration=0.1
 @export_range(0,1) var deceleration=0.1
 @export_range(0,1) var decelerate_jump=0.6
+
 @export var coyote_time=.1
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-var jump_buffer_timer=0.0
+
+var jump_buffer_timer=0.1
 var can_dash=true
 var dash_dir=1
 var gravity_disabled=false
@@ -29,8 +32,6 @@ func _physics_process(delta):
 	print(is_stomping)
 	height_last_tick=height_this_tick
 	height_this_tick=velocity.y
-	if can_dash:
-		$Label.text="0"
 	if velocity.x!=0:
 		run_effect.emitting=true
 	else:
@@ -64,7 +65,6 @@ func _physics_process(delta):
 	animations(horizontal)
 	stomp()
 	emit_stomp()
-	Ui_handler()
 	move_and_slide()
 
 func player_move(direction):
@@ -145,8 +145,6 @@ func emit_stomp():
 	else:
 		stomp_effect.emitting=false
 
-func Ui_handler():
-	$Label.text=str($Timer.time_left)
 	
 func _on_timer_timeout() -> void:
 	dash_effect.emitting=false
