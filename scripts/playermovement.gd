@@ -64,11 +64,14 @@ func _physics_process(delta):
 	if velocity.y>0:
 		velocity.y+=20
 	if velocity.y>MAX_FALL_SPEED:
-		velocity.y=MAX_FALL_SPEED
+		if is_stomping:
+			velocity.y=STOMP_MAX_FALL_SPEED
+		else:
+			velocity.y=MAX_FALL_SPEED
 	if abs(velocity.x)>MAX_SPEED:
 		velocity.x=MAX_SPEED*horizontal
 	# Handle function calls.
-	jump(delta)
+	jump()
 	dash(horizontal,vertical)
 	player_move(horizontal)
 	flip(horizontal)
@@ -89,7 +92,7 @@ func coyoteTime():
 	await get_tree().create_timer(coyote_time).timeout
 	can_coyote_jump=false
 
-func jump(delta):
+func jump():
 	# handle buffered jump
 	if buffered_jump_press and is_on_floor():
 		velocity.y = JUMP_VELOCITY
