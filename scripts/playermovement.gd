@@ -6,6 +6,7 @@ const DASH_SPEED = 400.0
 const MAX_FALL_SPEED=500.0
 const MAX_SPEED=500.0
 const STOMP_MAX_FALL_SPEED=700.0
+const MAX_WALL_FALL_SPEED=50.0
 @onready var dash_effect: GPUParticles2D = $GPUParticles2D
 @onready var run_effect: GPUParticles2D = $GPUParticles2D2
 @onready var stomp_effect: GPUParticles2D = $GPUParticles2D3
@@ -44,7 +45,7 @@ func _physics_process(delta):
 		# usual gravity stuff
 		velocity += get_gravity() * delta
 	# when on ground
-	if is_on_floor():
+	if is_on_floor() or is_on_wall():
 		# give back ability to jump
 		can_coyote_jump=true
 		# detect momemnt we contact the ground and give ability to dash
@@ -60,6 +61,10 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	var horizontal=Input.get_axis("move_left","move_right")
 	var vertical=Input.get_axis("move_up","move_down")
+	
+	if is_on_wall() and velocity.y>MAX_WALL_FALL_SPEED:
+		velocity.y=MAX_WALL_FALL_SPEED
+	
 	#speed up falling speed every tick by 2 until it reaches 400 and keep it constatn at 400
 	if velocity.y>0:
 		velocity.y+=20
