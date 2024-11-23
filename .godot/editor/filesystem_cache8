@@ -1,4 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
+<<<<<<< Updated upstream
 ::res://::1728291203
 export_presets.cfg::TextFile::-1::1727371639::0::1::::<><>::
 icon.svg::CompressedTexture2D::5981001954948485587::1726212720::1726298572::1::::<><>::
@@ -32,3 +33,38 @@ ghostdash.tscn::PackedScene::-1::1727170640::0::1::::<><>::
 player.tscn::PackedScene::4883959063449017162::1727181720::0::1::::<><>::uid://ere2empfbbui::::res://assets/sprites/lancelot_.png<>res://scripts/playermovement.gd
 ::res://scripts/::1727181813
 playermovement.gd::GDScript::-1::1727181813::0::1::::<>CharacterBody2D<>::
+=======
+::res://::1732350809
+export_presets.cfg::TextFile::-1::1726911074::0::1::::<><>::
+icon.svg::CompressedTexture2D::5981001954948485587::1725794784::1725794800::1::::<><>::
+README.md::TextFile::-1::1726141130::0::1::::<><>::
+::res://assets/::1726838612
+::res://assets/fonts/::1726838619
+PixelOperator8-Bold.ttf::FontFile::6603061631549737689::1726838619::1726838619::1::::<><>::
+PixelOperator8.ttf::FontFile::1464077192661453462::1726838619::1726838619::1::::<><>::
+PixelOperator-Bold.ttf::FontFile::7262353220960479515::1726838619::1726838619::1::::<><>::
+PixelOperator.ttf::FontFile::8508719041250814272::1726838619::1726838612::1::::<><>::
+PixelOperatorHB8.ttf::FontFile::5164986023619672984::1726838619::1726838619::1::::<><>::
+PixelOperatorHB.ttf::FontFile::4702358721203484933::1726838619::1726838619::1::::<><>::
+PixelOperatorHBSC.ttf::FontFile::765376766803042923::1726838619::1726838619::1::::<><>::
+PixelOperatorMono8-Bold.ttf::FontFile::4517376568486246222::1726838619::1726838619::1::::<><>::
+PixelOperatorMono8.ttf::FontFile::4395846163619722107::1726838619::1726838619::1::::<><>::
+PixelOperatorMono-Bold.ttf::FontFile::3106344449935473666::1726838619::1726838619::1::::<><>::
+PixelOperatorMono.ttf::FontFile::7690314419451512157::1726838619::1726838619::1::::<><>::
+PixelOperatorMonoHB8.ttf::FontFile::7023953220253944120::1726838619::1726838619::1::::<><>::
+PixelOperatorMonoHB.ttf::FontFile::4423575891387354328::1726838619::1726838619::1::::<><>::
+PixelOperatorSC-Bold.ttf::FontFile::2211574498860435978::1726838619::1726838619::1::::<><>::
+PixelOperatorSC.ttf::FontFile::5328301039053563307::1726838619::1726838619::1::::<><>::
+::res://assets/sprites/::1726851769
+lancelot_.png::CompressedTexture2D::316141110096951532::1621340506::1725913232::1::::<><>::
+run.png::CompressedTexture2D::6466532815838496596::1726776017::1726776024::1::::<><>::
+sky_.png::CompressedTexture2D::4209600621033414701::1664541126::1726500192::1::::<><>::
+spring_.png::CompressedTexture2D::5643799408167297134::1674480520::1725915505::1::::<><>::
+stomp.png::CompressedTexture2D::854289932525752704::1726851765::1726851769::1::::<><>::
+::res://scenes/::1726932141
+amjangame.tscn::PackedScene::7430810003941066911::1726932141::0::1::::<><>::uid://cbt3deuupf27g::::res://scenes/player.tscn<>uid://cmn5s00l8w02u::::res://assets/sprites/spring_.png<>uid://cyeo36odf3fbo::::res://assets/sprites/run.png<>uid://b08frik6bqgiv::::res://assets/sprites/sky_.png<>uid://mf3bbd4ygawe::::res://assets/sprites/stomp.png
+ghostdash.tscn::PackedScene::5548702515461390063::1726777677::0::1::::<><>::res://scenes/ghostdash.gd
+player.tscn::PackedScene::4883959063449017162::1726932141::0::1::::<><>::uid://ere2empfbbui::::res://assets/sprites/lancelot_.png<>res://scripts/playermovement.gd
+::res://scripts/::1726920569
+playermovement.gd::GDScript::-1::1726920569::0::1::::<>CharacterBody2D<>::
+>>>>>>> Stashed changes

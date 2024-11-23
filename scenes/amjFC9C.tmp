@@ -375,7 +375,10 @@ position = Vector2(444, 45)
 [node name="Camera2D" type="Camera2D" parent="player"]
 zoom = Vector2(3, 3)
 process_callback = 0
-drag_vertical_offset = -0.59
+limit_smoothed = true
+position_smoothing_enabled = true
+drag_horizontal_offset = 0.21
+drag_vertical_offset = -0.51
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="player"]
 material = SubResource("ShaderMaterial_6unu3")

@@ -29,11 +29,30 @@ var height_last_tick=0
 var height_this_tick=0
 
 
+
+
 func _ready() -> void:
 	dash_effect.emitting=false
 	stomp_effect.emitting=false
 
+#func _process(_delta: float) -> void:
+	#var camera=$Camera2D
+	#var player=$"."
+	#var screen_width = get_viewport_rect().size.x
+	#var camera_target
+	#var target_distance = 100 # You can use screen_width if you want 1/x of the screen etc.
+	#
+	#if velocity.x>0 and camera.offset.x<=20 :
+		#camera_target = player.position.x + target_distance
+		#camera.offset.x +=0.15
+	#elif velocity.x<0 and camera.offset.x>=-20:
+		#camera_target = player.position.x - target_distance
+		#camera.offset.x -= 0.15
+	#
+
+
 func _physics_process(delta):
+	print($Camera2D.offset.x)
 	# for detecting the instant the player touches the ground
 	height_last_tick=height_this_tick
 	height_this_tick=velocity.y
