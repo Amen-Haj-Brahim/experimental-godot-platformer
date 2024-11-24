@@ -29,8 +29,6 @@ var height_last_tick=0
 var height_this_tick=0
 
 
-
-
 func _ready() -> void:
 	dash_effect.emitting=false
 	stomp_effect.emitting=false
@@ -52,7 +50,6 @@ func _ready() -> void:
 
 
 func _physics_process(delta):
-	print($Camera2D.offset.x)
 	# for detecting the instant the player touches the ground
 	height_last_tick=height_this_tick
 	height_this_tick=velocity.y
@@ -90,6 +87,7 @@ func _physics_process(delta):
 	if velocity.y>MAX_FALL_SPEED:
 		if is_stomping:
 			velocity.y=STOMP_MAX_FALL_SPEED
+			
 		else:
 			velocity.y=MAX_FALL_SPEED
 	if abs(velocity.x)>MAX_SPEED:
